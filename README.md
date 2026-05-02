@@ -59,7 +59,7 @@ strain/sample names from FASTQ files are identified as follows: <strain_1>_1.fas
   names above) in "FASTQ/raw".
 
 5.) In your Snakemake directory, create the subdirectory "reference", then place your reference genome assembly FASTA (e.g., "ref_assembly.fasta")
-& annotations GTF (e.g., "ref_annotations.gtf").
+& annotations GTF file (e.g., "ref_annotations.gtf"). The GTF file should have a column, "gene_ID", assigning coordinates to gene IDs.
 
 6.) Edit "config/config.yaml" to include the assembly FASTA (ref_assembly: "reference/<your reference assembly>.fasta") & annotations GTF 
 (ref_annotation: "reference/<your reference annotations>.gtf") for your reference genome, per step 5.).
@@ -68,10 +68,9 @@ strain/sample names from FASTQ files are identified as follows: <strain_1>_1.fas
 
 # Running the Pipeline
 
-This pipeline is designed to be run in 4 stages: 1.) initial quality assessment of raw FASTQs; 
-2.) FASTQ trimming and quality assessment of trimmed reads; 3.) genome assembly and quality assessment; 
-& 4.) genome annotation. By utilizing the comment mark (#) in the Snakefile, the workflow can be run stepwise, 
-permitting the review of FastQC, MultiQC, & QUAST QC reports before subsequent steps. The workflow can be run 
+This pipeline is designed to be run in 3 stages: 1.) initial quality assessment of raw FASTQs; 2.) FASTQ trimming and quality assessment of trimmed reads; 
+@ 3.) indexing/mapping to reference genome, SAM=>BAM conversion, & gene-level & splice-aware read quantitation. By utilizing the comment mark (#) in the Snakefile, 
+the workflow can be run stepwise, permitting the review of FastQC/MultiQC reports before subsequent steps. The workflow can be run 
 in full by "uncommenting" all stages in the Snakefile. To run the Snakemake workflow on a HPCC:
 
 ```bash
@@ -95,7 +94,7 @@ snakemake --dag | dot -Tpng > docs/dag.png
 
 #### Stage 1: Raw read quality assessment
 To run FastQC and MultiQC on raw reads, then review the MultiQC report 
-before proceeding to FASTQ trimming, "comment out" (add "#") Stages 2-4
+before proceeding to FASTQ trimming, "comment out" (add "#") Stages 2-3
 in the Snakefile, "rules" section, & run Snakemake. Review `MultiQC/raw/multiqc_report.html` 
 before continuing.
 
@@ -105,11 +104,7 @@ in the Snakefile & run Snakemake. Review `MultiQC/trimmed/multiqc_report.html` b
 continuing.
 
 #### Stage 3: Assembly & quality assessment
-To proceed with assembly & QC, "uncomment" Stage 3 in the Snakefile & run
-Snakemake.
-
-#### Stage 4: Annotation
-To proceed with annotation, "uncomment" Stage 4 in the Snakefile & run
+To proceed with remaining steps, "uncomment" all of Stage 3 in the Snakefile & run
 Snakemake.
 
 # Adjusting parameters
