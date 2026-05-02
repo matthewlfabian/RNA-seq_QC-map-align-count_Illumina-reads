@@ -10,23 +10,21 @@ include: "rules/SAMtools.smk"
 
 rule all:
     input:
-    # FASTQ QC assessment
+    # Stage 1 - FASTQ QC assessment
         expand("FastQC/raw/{sample}_R1_001_fastqc.html", sample=SAMPLES),
         expand("FastQC/raw/{sample}_R2_001_fastqc.html", sample=SAMPLES),
         "MultiQC/raw/multiqc_report.html",
-    # Trim_Galore trimming and trimmed FASTQ QC assessment
+    # Stage 2 - Trim_Galore trimming and trimmed FASTQ QC assessment
         expand(config["outdir"] + "/{sample}_R1_001_val_1.fq.gz", sample=SAMPLES),
         expand(config["outdir"] + "/{sample}_R2_001_val_2.fq.gz", sample=SAMPLES),
         expand("FastQC/trimmed/{sample}_R1_001_val_1_fastqc.html", sample=SAMPLES),
         expand("FastQC/trimmed/{sample}_R2_001_val_2_fastqc.html", sample=SAMPLES),
         "MultiQC/trimmed/multiqc_report.html",
-    # HISAT2 indexing
+    # Stage 3 - HISAT2 indexing/mapping, SAM=>BAM, & read quantitation
         expand("reference/index/genome.{n}.ht2", n=range(1, 9)),
         "reference/splice_sites.tsv",
         "reference/exons.tsv",
-    # HISAT2 mapping
         expand("HISAT2/{sample}.sam", sample=SAMPLES),
-    #SAMtools SAM=>BAM & QC
         expand("HISAT2/{sample}_sorted.bam", sample=SAMPLES),
         expand("HISAT2/{sample}_sorted.bam.bai", sample=SAMPLES),
         expand("logs/SAMtools/{sample}_flagstat.txt", sample=SAMPLES),
