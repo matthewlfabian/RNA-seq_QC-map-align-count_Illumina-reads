@@ -3,9 +3,12 @@ rule featureCounts:
         bams = expand("HISAT2/{sample}_sorted.bam", sample=SAMPLES),
         gtf  = config["ref_annotations"]
     output:
-        counts = "featureCounts/counts.txt",
+        counts  = "featureCounts/counts.txt",
         summary = "featureCounts/counts.txt.summary"
     threads: 8
+    resources:
+        mem_mb = 32000,
+        runtime = "02:00:00"
     conda: "../envs/featureCounts.yaml"
     log:
         "logs/featureCounts.log"
