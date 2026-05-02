@@ -1,0 +1,12 @@
+name: rmats
+channels:
+  - bioconda
+  - conda-forge
+  - defaults
+dependencies:
+  - rmats=4.1.2
+  - python=3.9
+  - numpy
+  - scipy
+  - matplotlib
+  - samtools
