@@ -14,7 +14,7 @@ rule rMATS:
     threads: 8
     resources:
         mem_mb  = 64000,
-        runtime = "08:00:00"
+        runtime = 480
     conda: "../envs/rMATS.yaml"
     log:
         "logs/rMATS.log"
