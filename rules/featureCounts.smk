@@ -8,7 +8,7 @@ rule featureCounts:
     threads: 8
     resources:
         mem_mb = 32000,
-        runtime = "02:00:00"
+        runtime = 120
     conda: "../envs/featureCounts.yaml"
     log:
         "logs/featureCounts.log"
