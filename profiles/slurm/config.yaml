@@ -1,14 +1,4 @@
-cluster: "sbatch
-    -p ceres
-    -A gifvl
-    --job-name={rule}
-    --time={resources.runtime}
-    --mem={resources.mem_mb}M
-    --cpus-per-task={threads}
-    -N 1
-    -n 1
-    -o logs/slurm/{rule}.%j.out
-    -e logs/slurm/{rule}.%j.err"
+cluster: "sbatch -p ceres -A gifvl --job-name={rule} --time={resources.runtime} --mem={resources.mem_mb}M --cpus-per-task={threads} -N 1 -n 1 -o logs/slurm/{rule}.%j.out -e logs/slurm/{rule}.%j.err"
 
 default-resources:
   - mem_mb=8000
