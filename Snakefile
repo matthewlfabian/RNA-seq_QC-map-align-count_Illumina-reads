@@ -33,4 +33,3 @@ rule all:
         "featureCounts/counts.txt",
         "rMATS/output",
         "featureCounts/counts.txt.summary",
-        "
