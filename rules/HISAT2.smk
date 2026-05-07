@@ -32,7 +32,7 @@ rule hisat2_align:
     threads: 8
     resources:
         mem_mb = 32000,
-        runtime = "04:00:00"
+        runtime = 240
     conda: "../envs/HISAT2.yaml"
     log:
         "logs/hisat2_align/{sample}.log"
