@@ -1,7 +1,7 @@
 executor: slurm
 default-resources:
-  slurm_account: gifvl
-  slurm_partition: ceres
+  slurm_account: 
+  slurm_partition: 
   mem_mb: 8000
   runtime: 120
 jobs: 100
